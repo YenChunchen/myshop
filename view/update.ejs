@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data" action="update" >
+  帳號：<input type="text" name="account" value="<%= rows[0].account %>" readonly="true"><br>
+  密碼：<input type="text" name="pwd" value="<%= rows[0].pwd %>"><br>
+  圖檔：<%= rows[0].oldpicname %>
+       <img src="data:image/jpeg;base64,<%= rows[0].photo %>"/><br>
+      <input type="file" name="file">
+<input type="submit" name="submit" value="更新">
+</form>
+</body>
+</html>

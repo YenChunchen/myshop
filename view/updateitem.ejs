@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <img src="data:image/jpeg;base64,<%= rows[0].photo %>"" alt="<%= rows[0].name %>">
+  <form method="post" enctype="multipart/form-data" action="edititem" >
+    <input type="number" name="id" value="<%= rows[0].id %>" readonly="true"><br>
+    品名： <input type="text" name="name" value="<%= rows[0].name %>"><br>
+    價格： <input type="text" name="price" value="<%= rows[0].price %>"><br>
+    庫存： <input type="text" name="store" value="<%= rows[0].store %>"><br>
+    圖示： <input type="file" name="itempic"><br>
+  <input type="submit" name="submit" value="修改產品">
+</form>
+</body>
+</html>

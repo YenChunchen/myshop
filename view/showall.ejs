@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <h1><%= locals.title %></h1>
+  <main role="main">
+    <div class="container">
+      <a href="upload">新建會員</a>
+      <% rows.forEach(function(r){   %>
+        <h4>帳號</h4><p><%= r.account %></p>
+        <h4>密碼</h4><p><%= r.pwd %></p>
+        位置： <img src="uploads/<%= r.newpicname  %>"/><br>
+        BASE64:  <img src="data:image/jpeg;base64,<%= r.photo %>"/>
+        <a href="update?account=<%= r.account %>">修改</a>
+        <a href="deletemember?id=<%= r.id %>">刪除</a>
+        <hr/>
+      <% }); %>
+    </main>
+  </div>
+
+</body>
+</html>

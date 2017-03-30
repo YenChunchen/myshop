@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+  <h1><%= locals.title %></h1>
+  <a href="createitem">新增商品</a>
+  <!-- <form action="productslist" method="post">
+    每頁顯示<input type="text" name="wannashow">筆
+    <input type="submit" name="submit" value="start" >
+  </form> -->
+  <form action="deleteitem" method="post">
+    <% console.log(typeof rows,typeof next)%>
+
+    <% rows.forEach(function(r){   %>
+      <img src="data:image/jpeg;base64,<%= r.photo %>"/><br>
+      <h4>商品名稱</h4><p><%= r.name %></p>
+      <h4>商品價格</h4><p><%= r.price %></p>
+      <h4>商品庫存</h4><p><%= r.store %></p>
+      <!-- 位置： <img src="uploads/<%= r.newpicname  %>"/><br>
+      BASE64:  <img src="data:image/jpeg;base64,<%= r.photo %>"/>
+      <a href="update?account=<%= r.id %>">修改</a> -->
+      <!-- <a href="deleteproduct?id=<%= r.id %>">刪除:</a> -->
+      <a href="edititem?id=<%= r.id %>">修改</a>
+      刪除:<input type="checkbox" name="delitem" value="<%= r.id %>">
+      <hr/>
+    <% }); %>
+
+    <input type="submit" name="submit" value="刪除勾選項目" >
+
+    <a href="productslist?page=<%= back %>" >上一頁 |</a>
+
+    <% var allpage =Math.ceil(allitem/20)%>
+    <% for(var i=1;i<=allpage;i++){  %>   <!--動態增加頁數-->
+      <a href="productslist?page=<%= i %>"><%= i %></a>
+    <% } %>
+
+    <a href="productslist?page=<%= next %>">| 下一頁</a>
+  </form>
+  <form action="productslist" method="post">
+    從第<input type="text" name="begin">筆開始
+    到第<input type="text" name="end">筆結束
+    <input type="submit" name="submit" value="start" >
+  </form>
+</body>
+
+
+
+
+</html>
+<!-- insert into products (id,name,price,photo,newpicname,oldpicname,store) values ('NULL',AAA,20.5,'NULL','NULL','NULL',10) -->
