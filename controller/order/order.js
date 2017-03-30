@@ -13,14 +13,13 @@ module.exports= class order{
     var item_nums=req.body.products_quentity;
     var orderguy_id=req.body.orderguy_id;
     create_cart_todb.check_cartfields(orderguy_id,item_ids,item_nums).then(function(result){
-      if(result!=='true'){    //檢查系統參數
-          res.json({message:result});
-          return;
-      }else{  //系統參數欄位無誤
         create_cart_todb.create_cart(orderguy_id,item_ids,item_nums).then(function(result){
           res.json({message:result});
+        }).catch(function(err){
+          res.json({message:err});
         });
-      }
+    }).catch(function(err){
+      res.json({message:err});
     });
   }
   create_orderlist(req,res){   //建立訂單

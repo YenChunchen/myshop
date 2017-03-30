@@ -36,8 +36,7 @@ exports.create_cart=function(orderguy_id,item_ids,item_nums){
         if(rows.length===1){
           callback(null);
         }else{ //如果不是會員
-          var nonexist="請登入會員";
-          resolve(nonexist);
+          reject("請登入會員");
           return;
         }
       });
@@ -49,8 +48,7 @@ exports.create_cart=function(orderguy_id,item_ids,item_nums){
         if(rows.length===0){  //如果還沒有購物車
           callback(null);
         }else{
-          var isexist="該購物車已存在";
-          resolve(isexist);
+          reject("該購物車已存在");
           return;
         }
       });
@@ -82,7 +80,7 @@ exports.create_cart=function(orderguy_id,item_ids,item_nums){
           }
         }
         if(failarr.length>0){
-          resolve(failarr);
+          reject(failarr);
         }else{
           callback(null,rows);  //如資料皆正確
         }
@@ -110,7 +108,7 @@ exports.create_cart=function(orderguy_id,item_ids,item_nums){
     }
     //計算總合
     function count_total(correct_info,callback) {
-      console.log(correct_info);
+      // console.log(correct_info);
       var total=0;
       var products_id='';  //存放所有合法商品id字串
       var products_quentity='';  //存放所有合法商品數量字串
@@ -136,28 +134,19 @@ exports.create_cart=function(orderguy_id,item_ids,item_nums){
 
 
 
-
-
 exports.check_cartfields=function(orderguy_id,item_ids,item_nums){
   // console.log(item_ids,item_nums);
   return new Promise(function(resolve,reject){
     if((item_ids===undefined)||(item_nums===undefined)||(item_ids==='')||(item_nums==='')){
-      var field_fail='請輸入正確欄位';
-      resolve(field_fail);
-      return;
+      reject('請輸入正確欄位');
     }else{
       var ids_arr=item_ids.split(',');
       var nums_arr=item_nums.split(',');
       if(ids_arr.length!==nums_arr.length) { //檢查欄位數量相同？
-        var num_fail='請輸入對應數量';
-        resolve(num_fail);
-        return;
+        reject('請輸入對應數量');
       }else{
-        // resolve('true');
         if(isNaN(orderguy_id)){
-          console.log(123);
-          var orderguy_fail='請輸入正確會員id';
-          resolve(orderguy_fail);
+          reject('請輸入正確會員id');
         }else{
           resolve('true');
         }
