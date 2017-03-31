@@ -27,7 +27,7 @@ module.exports= class order{
     var item_ids=req.body.products_id;
     var item_nums=req.body.products_quentity;
     var orderguy_id=req.body.orderguy_id;
-    create_cart_todb2.check_cartfields(orderguy_id,item_ids,item_nums).then(function(result){
+    check_cartfields(orderguy_id,item_ids,item_nums).then(function(result){
       res.json({message:result});
     }).catch(function(err){
       res.json({message:err});
@@ -86,3 +86,63 @@ module.exports= class order{
     });
   }
 };
+
+function checkfield(orderguy_id,item_ids,item_nums){  //檢查欄位
+  return new Promise(function(resolve,reject){
+    if((item_ids===undefined)||(item_nums===undefined)||(item_ids==='')||(item_nums==='')||(isNaN(orderguy_id))){
+      reject('請輸入正確欄位');   //檢查欄位
+    }else{
+      resolve('true');
+    }
+  });
+}
+function checknum(item_ids,item_nums){  //檢查數量
+  return new Promise(function(resolve,reject){
+    var ids_arr=item_ids.split(',');
+    var nums_arr=item_nums.split(',');
+    if(ids_arr.length!==nums_arr.length) { //檢查欄位數量相同？
+      reject('請輸入對應數量');
+    }else{
+      var temp={
+        ids:ids_arr,
+        nums:nums_arr,
+      };
+      resolve(temp);
+    }
+  });
+}
+function get_this_cart(temp){  //整理合法資料
+  return new Promise(function(resolve,reject){
+    var all_id=temp.ids;
+    var all_quan=temp.nums;
+    var temparr=[];
+    for(var i=0;i<=all_id.length-1;i++){
+      var thiscart={
+        id:all_id[i],
+        quan:all_quan[i]
+      };
+      temparr.push(thiscart);
+    }
+    resolve(temparr);
+  });
+}
+
+
+
+
+
+function check_cartfields(orderguy_id,item_ids,item_nums){
+  return new Promise(function(resolve,reject){
+    checkfield(orderguy_id,item_ids,item_nums).then(function(result){
+      checknum(item_ids,item_nums).then(function(result){
+          get_this_cart(result).then(function(result){
+            resolve(result);
+          });
+        }).catch(function(err){
+          reject(err);
+        });
+    }).catch(function(err){
+        reject(err);
+    });
+  });
+}
