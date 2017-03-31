@@ -131,7 +131,7 @@ function get_this_cart(temp){  //整理合法資料
 
 
 
-function check_cartfields(orderguy_id,item_ids,item_nums){
+function check_cartfields(orderguy_id,item_ids,item_nums){  //統整系統參數
   return new Promise(function(resolve,reject){
     checkfield(orderguy_id,item_ids,item_nums).then(function(result){
       checknum(item_ids,item_nums).then(function(result){
