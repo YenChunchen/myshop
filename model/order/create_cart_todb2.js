@@ -1,12 +1,11 @@
-var connectdb=require('../connectdb');  //connect to db module
-var async=require('async');
-var temparr={};
-exports.create_cart=function(orderguy_id,item_ids,item_nums){
-  return new Promise(function(resolve,reject){
+// var connectdb=require('../connectdb');  //connect to db module
+// var async=require('async');
+// exports.create_cart=function(orderguy_id,item_ids,item_nums){
+//   return new Promise(function(resolve,reject){
 
 
-  });
-};
+//   });
+// };
 
 
 
