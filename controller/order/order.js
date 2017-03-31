@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var create_cart_todb=require('../../model/order/create_cart_todb');
+var create_cart_todb2=require('../../model/order/create_cart_todb2');
 var delete_orderlist_todb=require('../../model/order/delete_orderlist_todb');
 var orderlist_todb=require('../../model/order/orderlist_todb');
 var payment_todb=require('../../model/order/payment_todb');
@@ -8,20 +9,31 @@ var report_todb=require('../../model/order/report_todb');
 var update_orderlist_todb=require('../../model/order/update_orderlist_todb');
 
 module.exports= class order{
-  create_cart(req,res){
+  // create_cart(req,res){
+  //   var item_ids=req.body.products_id;
+  //   var item_nums=req.body.products_quentity;
+  //   var orderguy_id=req.body.orderguy_id;
+  //   create_cart_todb.check_cartfields(orderguy_id,item_ids,item_nums).then(function(result){
+  //       create_cart_todb.create_cart(orderguy_id,item_ids,item_nums).then(function(result){
+  //         res.json({message:result});
+  //       }).catch(function(err){
+  //         res.json({message:err});
+  //       });
+  //   }).catch(function(err){
+  //     res.json({message:err});
+  //   });
+  // }
+  create_cart2(req,res){
     var item_ids=req.body.products_id;
     var item_nums=req.body.products_quentity;
     var orderguy_id=req.body.orderguy_id;
-    create_cart_todb.check_cartfields(orderguy_id,item_ids,item_nums).then(function(result){
-        create_cart_todb.create_cart(orderguy_id,item_ids,item_nums).then(function(result){
-          res.json({message:result});
-        }).catch(function(err){
-          res.json({message:err});
-        });
+    create_cart_todb2.check_cartfields(orderguy_id,item_ids,item_nums).then(function(result){
+      res.json({message:result});
     }).catch(function(err){
       res.json({message:err});
     });
   }
+
   create_orderlist(req,res){   //建立訂單
     if(!isNaN(req.body.orderguy_id)){
       var email=req.body.email;
