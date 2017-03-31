@@ -27,7 +27,7 @@ module.exports= class order{
     var item_ids=req.body.products_id;
     var item_nums=req.body.products_quentity;
     var orderguy_id=req.body.orderguy_id;
-    create_cart_todb2.check_cartfields(orderguy_id,item_ids,item_nums).then(function(result){
+    create_cart_todb2.check_cartfields(orderguy_id,item_ids,item_nums).then(function(result){  //取得符合系統參數
       res.json({message:result});
     }).catch(function(err){
       res.json({message:err});
