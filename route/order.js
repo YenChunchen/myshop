@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Order=require('../controller/order/order.js');
 var order=new Order();
-// router.post('/createcart' , order.create_cart);  //建立購物車
-router.post('/createcart2' , order.create_cart2);  //建立購物車
+router.post('/createcart' , order.create_cart);  //建立購物車
 router.post('/orderlist' , order.create_orderlist);  //建立訂單
 router.get('/orderlist' , order.get_orderlist);  //取得所有訂單
 router.get('/updateorderlist' , order.get_oneorderlist);    //更新單筆訂單
