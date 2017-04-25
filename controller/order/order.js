@@ -45,25 +45,45 @@ module.exports= class order{
   }
   payment(req,res){   //付款
     var orderid=req.query.id;
+    if(isNaN(orderid)){
+      res.json({message:"訂單id錯誤"});
+      return;
+    }
     payment_todb.pay(orderid).then(function(result){
       res.json({message:result});
     });
   }
   get_oneorderlist(req,res){    //取得單筆訂單
     var id=req.query.id;
+    if(isNaN(id)){
+      res.json({message:'id錯誤'});
+      return;
+    }
     update_orderlist_todb.get_updateinfo(id).then(function(result){
       res.json({list:result});
     });
   }
   update_orderlist(req,res){  //更新訂單
     var temp=req.body;
+    if(temp.email===undefined||temp.email===''||temp.products_id===''||temp.products_id===undefined||temp.products_quentity===''||temp.products_quentity===undefined){
+      res.json({message:'欄位錯誤'});
+      return;
+    }
     var orderid=req.query.id;
+    if(isNaN(orderid)){
+      res.json({message:'orderid錯誤'});
+      return;
+    }
     update_orderlist_todb.edit_orderlist(orderid,temp).then(function(result){
       res.json({message:result});
     });
   }
   delete_orderlist(req,res){    //刪除訂單
     var orderid=req.query.id;
+    if(isNaN(id)){
+      res.json({message:'id錯誤'});
+      return;
+    }
     delete_orderlist_todb(orderid).then(function(result){
       res.json({message:result});
     });

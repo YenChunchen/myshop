@@ -11,8 +11,8 @@ exports.create_cart=async function(cart_info,item_ids){
       return('商品已加入購物車');
     }
     catch(err){
-      console.log(err);
-      if(typeof err.message===undefined){
+      if(err.message===undefined){
+        console.log(err);
         return err.join(",");
       }else{
         return err.message;
