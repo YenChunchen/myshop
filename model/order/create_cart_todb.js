@@ -12,7 +12,7 @@ exports.create_cart=async function(cart_info,item_ids){
     }
     catch(err){
       console.log(err);
-      if(typeof err==='object'){
+      if(typeof err.message===undefined){
         return err.join(",");
       }else{
         return err.message;
@@ -33,7 +33,10 @@ function check_member(orderguy_id){
       if(rows.length===1){
         resolve();
       }else{ //如果不是會員
-        reject("請登入會員");
+        var err={
+          message:"請登入會員"
+        };
+        reject(err);
         return;
       }
     });
@@ -50,7 +53,10 @@ function cart_isexist(orderguy_id){
       if(rows.length===0){  //如果還沒有購物車
         resolve();
       }else{
-        reject("該購物車已存在");
+        var err={
+          message:"該購物車已存在"
+        };
+        reject(err);
         return;
       }
     });
